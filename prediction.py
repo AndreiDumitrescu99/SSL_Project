@@ -43,11 +43,17 @@ if __name__ == "__main__":
         real_outcome = np.argmax(y_test[cnt])
         
         if outcome != real_outcome and sem_wrong == 0:
-            print(test_set[cnt], real_outcome, outcome, y_test[cnt], p)
+            print("~~~~~ Wrong Sample ~~~~~")
+            print("Text:")
+            print(test_set[cnt][0])
+            print("Real Outcome: ", real_outcome, " Our outcome: ", outcome)
             sem_wrong = 1
 
         if outcome == real_outcome and sem_correct == 0:
-            print(test_set[cnt], real_outcome, outcome, y_test[cnt], p)
+            print("~~~~~ Correct Sample ~~~~~")
+            print("Text:")
+            print(test_set[cnt][0])
+            print("Real Outcome: ", real_outcome, " Our outcome: ", outcome)
             sem_correct = 1
         
         if sem_correct == 1 and sem_wrong == 1:

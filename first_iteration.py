@@ -128,4 +128,4 @@ def run_first_iteration_experiments(just_eval: bool = False) -> None:
 
 if __name__ == "__main__":
 
-    run_first_iteration_experiments(True)
+    run_first_iteration_experiments(False)

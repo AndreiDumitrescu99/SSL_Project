@@ -1,4 +1,3 @@
-from cgi import test
 import csv
 import math
 from typing import List, Tuple
@@ -6,8 +5,10 @@ import numpy as np
 import tensorflow as tf
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
+from transformers import BertweetTokenizer, AutoTokenizer, AutoModel
 import random
-nltk.download('punkt')
+from preprocess import map
+# nltk.download('punkt')
 
 SEED = 13
 
@@ -134,4 +135,22 @@ def read_dataset_convabuse(train_dataset: str, validation_dataset: str, test_dat
 	validation_file.close()
 
 	return train_set, validation_set, test_set
+
+def get_dataset_bert(myset: List[Tuple[str, int]], testing: bool = False, target: int = 2, max_len: int = 100):
+
+    tokenizer = AutoTokenizer.from_pretrained("GroNLP/hateBERT")
+
+    dataset = []
+    xs = []
+    ys = []
+    ids = []
+    stds = []
+
+    for x, y in myset:
+
+        embeds = tokenizer.encode(x, max_length = max_len, padding = 'max_length', truncation=True)
+        xs.append(embeds)
+        ys.append(map(y, target))
+
+    return xs, ys, max_len
 
